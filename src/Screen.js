@@ -1,6 +1,8 @@
 const logger = require("node-color-log");
 const TYPE = require("./cards/Types");
 
+const previousCardsCount = {};
+
 function printDeck(uno) {
   //   printSpaces(5);
   //   printWall();
@@ -28,12 +30,20 @@ function printBoard(uno) {
     const playerPlaying = uno.playerPlaying;
     const isPlaying = uno.playerPlaying.id === player.id;
 
+    previousCardCount = previousCardsCount[player.id] - player.cards.length;
+
     strLog +=
       getColor(isPlaying ? "RED" : "WHITE") +
       player.name +
       " (" +
       player.cards.length +
-      " cards) \t";
+      " cards)" +
+      (previousCardCount < 0
+        ? getColor("GREEN") + " +" + -previousCardCount
+        : "") +
+      "\t";
+
+    previousCardsCount[player.id] = player.cards.length;
   }
 
   // Print deck cards
