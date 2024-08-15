@@ -26,9 +26,15 @@ function isNumeric(str) {
   return !isNaN(str) && !isNaN(parseFloat(str));
 }
 
+function sleep(ms) {
+  const end = Date.now() + ms;
+  while (Date.now() < end) {}
+}
+
 module.exports = {
   randomizeArray,
   removeElementAtIndex,
   removeElement,
   isNumeric,
+  sleep,
 };

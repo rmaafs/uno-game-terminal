@@ -2,18 +2,67 @@ const logger = require("node-color-log");
 const TYPE = require("./cards/Types");
 
 function printDeck(uno) {
-  printSpaces(5);
-  printWall();
-  const playerPlaying = uno.playerPlaying;
-  printPlayerDeck(playerPlaying);
+  //   printSpaces(5);
+  //   printWall();
+  //   const playerPlaying = uno.playerPlaying;
+  //   printPlayerDeck(playerPlaying);
 
+  //   const playingCard = uno.deckPlayed[uno.deckPlayed.length - 1];
+  //   printWall();
+  //   console.log(getPrintCard(playingCard));
+
+  //   printNextPlayers(uno.players);
+
+  //   printWall();
+
+  printBoard(uno);
+}
+
+function printBoard(uno) {
+  printSpaces(20);
+
+  let strLog = "";
+  // Print other players
+  for (let i = uno.players.length - 1; i >= 1; i--) {
+    const player = uno.players[i];
+    const playerPlaying = uno.playerPlaying;
+    const isPlaying = uno.playerPlaying.id === player.id;
+
+    strLog +=
+      getColor(isPlaying ? "RED" : "WHITE") +
+      player.name +
+      " (" +
+      player.cards.length +
+      " cards) \t";
+  }
+
+  // Print deck cards
   const playingCard = uno.deckPlayed[uno.deckPlayed.length - 1];
-  printWall();
-  console.log(getPrintCard(playingCard));
+  strLog +=
+    "\n\n\n\t\t\t" +
+    getColor("WHITE") +
+    "[" +
+    uno.cards.length +
+    "]\t\t" +
+    getPrintCard(playingCard) +
+    "\n\n\n";
 
-  printNextPlayers(uno.players);
+  // Print human cards
+  strLog += "[Take]\t";
+  const human = uno.players[0];
+  for (let i = 0; i < human.cards.length; i++) {
+    const card = human.cards[i];
 
-  printWall();
+    strLog += getPrintCard(card) + "\t";
+  }
+
+  strLog += "\n(-1)\t";
+  for (let i = 0; i < human.cards.length; i++) {
+    strLog += "(" + i + ")\t";
+  }
+  strLog += "\n\n";
+
+  console.log(strLog);
 }
 
 function getPrintCard(card, appendMessage = "") {
@@ -36,21 +85,6 @@ function printNextPlayers(players) {
     console.log(player.name + " " + player.cards.length + " cards. " + strCard);
   }
 }
-
-// function printCards(cards) {
-//   let finalPrint = "";
-//   for (let i = 0; i < cards.length; i++) {
-//     const card = cards[i];
-//     const loggerColor = logger.color(
-//       card.color ? card.color.toLowerCase() : "white"
-//     );
-//     const digit = getDigit(card);
-
-//     finalPrint += loggerColor.log(digit).reset();
-//   }
-
-//   console.log(finalPrint);
-// }
 
 function printPlayerDeck(player) {
   const cards = player.cards;

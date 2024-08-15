@@ -1,10 +1,10 @@
 var getCardsArray = require("./cards/Cards");
 const Player = require("./Player");
-var { randomizeArray } = require("./Utils");
+var { randomizeArray, sleep } = require("./Utils");
 var { printDeck, printColor } = require("./Screen");
 const readlineSync = require("readline-sync");
 
-const CARDS_PER_PLAYER = 3;
+const CARDS_PER_PLAYER = 7;
 
 class Uno {
   constructor(playerSize, rules) {
@@ -42,6 +42,12 @@ class Uno {
   }
 
   nextCard() {
+    if (this.playerPlaying.cards.length === 0) {
+      printDeck(this);
+      console.log(this.playerPlaying.name + " wins!");
+      process.exit(0);
+    }
+
     // Get next turn player
     if (++this.turnPlayer >= this.players.length) {
       this.turnPlayer = 0;
@@ -74,6 +80,10 @@ class Uno {
   playerMovement(playerCard) {
     const deckCard = this.getActualDeckCard();
 
+    if (!this.playerPlaying.isHuman) {
+      sleep(3000);
+    }
+
     // Invalid card? Take a new acrd
     if (playerCard === undefined) {
       this.playerPlaying.addCard(this.takeCard());
@@ -88,11 +98,6 @@ class Uno {
     // Valid card
     this.deckPlayed.push(playerCard);
     this.playerPlaying.removeCard(playerCard);
-
-    if (this.playerPlaying.cards.length === 0) {
-      console.log(this.playerPlaying.name + " wins!");
-      process.exit(0);
-    }
 
     return true;
   }
