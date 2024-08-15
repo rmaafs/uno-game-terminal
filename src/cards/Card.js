@@ -39,7 +39,7 @@ class Card {
   }
 
   isPlayeableWith(card, giveCardsNextPlayer) {
-    if (this.type === TYPE.SELECT_COLOR) {
+    if (this.type === TYPE.SELECT_COLOR && giveCardsNextPlayer === 0) {
       return true;
     } else if (this.type === TYPE.T4) {
       return true;

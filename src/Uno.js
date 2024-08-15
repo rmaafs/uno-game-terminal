@@ -125,7 +125,7 @@ class Uno {
     const deckCard = this.getActualDeckCard();
 
     if (!this.playerPlaying.isHuman) {
-      sleep(3000);
+      sleep(2000);
     }
 
     // Invalid card? Take a new acrd
