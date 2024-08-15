@@ -127,7 +127,7 @@ function printSpaces(spaces) {
  * @param {string} str - The message to print.
  */
 function printColor(color, str) {
-  console.log(getColor(color) + str); // Print the message with the corresponding color code
+  console.log(getColor(color) + str + getColor("WHITE")); // Print the message with the corresponding color code
 }
 
 /**

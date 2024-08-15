@@ -1,10 +1,10 @@
-var getCardsArray = require('./cards/Cards');
-const Player = require('./Player');
-const RULE = require('./Rules');
-var { randomizeArray, sleep } = require('./Utils');
-var { printBoard, printColor, getColor } = require('./Screen');
-const readlineSync = require('readline-sync');
-const COLOR = require('./cards/Colors');
+var getCardsArray = require("./cards/Cards");
+const Player = require("./Player");
+const RULE = require("./Rules");
+var { randomizeArray, sleep } = require("./Utils");
+var { printBoard, printColor, getColor } = require("./Screen");
+const readlineSync = require("readline-sync");
+const COLOR = require("./cards/Colors");
 
 // Number of cards each player receives at the start of the game
 const CARDS_PER_PLAYER = 7;
@@ -77,7 +77,7 @@ class Uno {
     // Check if the current player has won
     if (this.playerPlaying && this.playerPlaying.cards.length === 0) {
       printBoard(this); // Display the board
-      console.log(this.playerPlaying.name + ' wins!'); // Announce the winner
+      console.log(this.playerPlaying.name + " wins!"); // Announce the winner
       process.exit(0); // Exit the game
     }
 
@@ -127,7 +127,7 @@ class Uno {
     if (this.playerPlaying.isHuman) {
       while (true) {
         // Ask the human player to choose a card
-        const index = readlineSync.question('Choose your next number: ');
+        const index = readlineSync.question("Choose your next number: ");
         if (this.humanMovement(index) === true) {
           break;
         }
@@ -173,7 +173,7 @@ class Uno {
 
     // Validate the card against the current deck card
     if (!playerCard.isPlayeableWith(deckCard, this.giveCardsNextPlayer)) {
-      return printColor('red', 'Please choose a valid color card.');
+      return printColor("RED", "Please choose a valid color card.");
     }
 
     // Handle special card actions
@@ -191,23 +191,23 @@ class Uno {
         // Ask the human player to choose a color
         while (true) {
           const index = readlineSync.question(
-            'Choose your next color ' +
-              getColor('RED') +
-              '(1) ' +
-              getColor('GREEN') +
-              '(2) ' +
-              getColor('BLUE') +
-              '(3) ' +
-              getColor('YELLOW') +
-              '(4)' +
-              getColor('WHITE') +
-              ': '
+            "Choose your next color " +
+              getColor("RED") +
+              "(1) " +
+              getColor("GREEN") +
+              "(2) " +
+              getColor("BLUE") +
+              "(3) " +
+              getColor("YELLOW") +
+              "(4)" +
+              getColor("WHITE") +
+              ": "
           );
           if (
-            index === '1' ||
-            index === '2' ||
-            index === '3' ||
-            index === '4'
+            index === "1" ||
+            index === "2" ||
+            index === "3" ||
+            index === "4"
           ) {
             const colors = [COLOR.RED, COLOR.GREEN, COLOR.BLUE, COLOR.YELLOW];
             const colorSelected = colors[Number(index) - 1];
