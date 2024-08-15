@@ -103,7 +103,7 @@ function getDigit(card) {
     return card.number;
   } else if (card.type === TYPE.REVERSE) {
     return "@";
-  } else if (card.type === TYPE.NEXT) {
+  } else if (card.type === TYPE.SKIP) {
     return ">";
   } else if (card.type === TYPE.SELECT_COLOR) {
     return "+";

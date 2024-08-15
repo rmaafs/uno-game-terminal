@@ -26,6 +26,18 @@ class Card {
     );
   }
 
+  isSameSpecialType(card) {
+    if (
+      this.type === TYPE.REVERSE ||
+      this.type === TYPE.SKIP ||
+      this.type === TYPE.T2
+    ) {
+      return this.type === card.type;
+    }
+
+    return false;
+  }
+
   isPlayeableWith(card) {
     if (this.type === TYPE.SELECT_COLOR) {
       return true;
@@ -39,10 +51,17 @@ class Card {
     if (this.isSameNumeric(card)) {
       return true;
     }
+    if (this.isSameSpecialType(card)) {
+      return true;
+    }
   }
 
   isReverse() {
     return this.type === TYPE.REVERSE;
+  }
+
+  isSkip() {
+    return this.type === TYPE.SKIP;
   }
 }
 

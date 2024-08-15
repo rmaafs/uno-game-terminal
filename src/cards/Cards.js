@@ -23,9 +23,9 @@ function getCardsArray() {
     // Reverse per color
     cards.push(new Card(TYPE.REVERSE, color, null));
     cards.push(new Card(TYPE.REVERSE, color, null));
-    // // Next per color
-    // cards.push(new Card(TYPE.NEXT, color, null));
-    // cards.push(new Card(TYPE.NEXT, color, null));
+    // Next per color
+    cards.push(new Card(TYPE.SKIP, color, null));
+    cards.push(new Card(TYPE.SKIP, color, null));
     // // +2 per color
     // cards.push(new Card(TYPE.T2, color, null));
     // cards.push(new Card(TYPE.T2, color, null));

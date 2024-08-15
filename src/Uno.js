@@ -12,6 +12,7 @@ class Uno {
     this.rules = rules;
 
     this.goRight = true;
+    this.skipNextPlayer = false;
 
     this.deckPlayed = [];
     this.players = [];
@@ -51,14 +52,23 @@ class Uno {
     }
 
     // Get next turn player
-    if (this.goRight) {
-      if (++this.turnPlayer >= this.players.length) {
-        this.turnPlayer = 0;
+    while (true) {
+      if (this.goRight) {
+        if (++this.turnPlayer >= this.players.length) {
+          this.turnPlayer = 0;
+        }
+      } else {
+        if (--this.turnPlayer < 0) {
+          this.turnPlayer = this.players.length - 1;
+        }
       }
-    } else {
-      if (--this.turnPlayer < 0) {
-        this.turnPlayer = this.players.length - 1;
+
+      // We need to skip the next player?
+      if (this.skipNextPlayer === true) {
+        this.skipNextPlayer = false;
+        continue;
       }
+      break;
     }
 
     this.playerPlaying = this.players[this.turnPlayer];
@@ -110,6 +120,8 @@ class Uno {
 
     if (playerCard.isReverse()) {
       this.goRight = !this.goRight;
+    } else if (playerCard.isSkip()) {
+      this.skipNextPlayer = true;
     }
 
     return true;
