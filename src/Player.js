@@ -33,6 +33,17 @@ class Player {
 
     return undefined;
   }
+
+  hasT2orT4() {
+    for (let i = 0; i < this.cards.length; i++) {
+      const card = this.cards[i];
+
+      if (card.isT2() || card.isT4()) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
 
 module.exports = Player;

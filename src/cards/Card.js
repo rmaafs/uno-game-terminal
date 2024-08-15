@@ -63,6 +63,14 @@ class Card {
   isSkip() {
     return this.type === TYPE.SKIP;
   }
+
+  isT2() {
+    return this.type === TYPE.T2;
+  }
+
+  isT4() {
+    return this.type === TYPE.T4;
+  }
 }
 
 module.exports = Card;

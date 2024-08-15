@@ -13,6 +13,7 @@ class Uno {
 
     this.goRight = true;
     this.skipNextPlayer = false;
+    this.giveCardsNextPlayer = 0;
 
     this.deckPlayed = [];
     this.players = [];
@@ -75,7 +76,16 @@ class Uno {
 
     printDeck(this);
 
-    if (this.playerPlaying.isHuman) {
+    if (this.giveCardsNextPlayer > 0) {
+      // if (!this.playerPlaying.hasT2orT4()) {
+
+      // }
+
+      while (--this.giveCardsNextPlayer >= 0) {
+        this.playerPlaying.addCard(this.takeCard());
+      }
+      this.giveCardsNextPlayer = 0;
+    } else if (this.playerPlaying.isHuman) {
       while (true) {
         // Ask
         const index = readlineSync.question("Choose your next number: ");
@@ -122,6 +132,8 @@ class Uno {
       this.goRight = !this.goRight;
     } else if (playerCard.isSkip()) {
       this.skipNextPlayer = true;
+    } else if (playerCard.isT2()) {
+      this.giveCardsNextPlayer += 2;
     }
 
     return true;

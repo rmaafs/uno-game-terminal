@@ -26,9 +26,9 @@ function getCardsArray() {
     // Next per color
     cards.push(new Card(TYPE.SKIP, color, null));
     cards.push(new Card(TYPE.SKIP, color, null));
-    // // +2 per color
-    // cards.push(new Card(TYPE.T2, color, null));
-    // cards.push(new Card(TYPE.T2, color, null));
+    // +2 per color
+    cards.push(new Card(TYPE.T2, color, null));
+    cards.push(new Card(TYPE.T2, color, null));
 
     // // Special cards
     // cards.push(new Card(TYPE.T4, null, null));
