@@ -141,4 +141,4 @@ function getColor(color) {
   return colors[color];
 }
 
-module.exports = { printDeck, printColor };
+module.exports = { printDeck, printColor, getColor };

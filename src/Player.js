@@ -1,4 +1,9 @@
-var { removeElementAtIndex, removeElement } = require("./Utils");
+var {
+  removeElementAtIndex,
+  removeElement,
+  randomizeArray,
+} = require("./Utils");
+const COLOR = require("./cards/Colors");
 
 class Player {
   constructor(id, name, isHuman) {
@@ -43,6 +48,15 @@ class Player {
       }
     }
     return false;
+  }
+
+  selectRandomColor() {
+    return randomizeArray([
+      COLOR.RED,
+      COLOR.GREEN,
+      COLOR.BLUE,
+      COLOR.YELLOW,
+    ])[0];
   }
 }
 

@@ -2,8 +2,9 @@ var getCardsArray = require("./cards/Cards");
 const Player = require("./Player");
 const RULE = require("./Rules");
 var { randomizeArray, sleep } = require("./Utils");
-var { printDeck, printColor } = require("./Screen");
+var { printDeck, printColor, getColor } = require("./Screen");
 const readlineSync = require("readline-sync");
+const COLOR = require("./cards/Colors");
 
 const CARDS_PER_PLAYER = 7;
 
@@ -138,17 +139,49 @@ class Uno {
       return printColor("red", "Please choose a valid color card.");
     }
 
-    // Valid card
-    this.deckPlayed.push(playerCard);
-    this.playerPlaying.removeCard(playerCard);
-
     if (playerCard.isReverse()) {
       this.goRight = !this.goRight;
     } else if (playerCard.isSkip()) {
       this.skipNextPlayer = true;
     } else if (playerCard.isT2()) {
       this.giveCardsNextPlayer += 2;
+    } else if (playerCard.isSelectColor()) {
+      if (this.playerPlaying.isHuman) {
+        while (true) {
+          // Ask
+          const index = readlineSync.question(
+            "Choose your next color " +
+              getColor("RED") +
+              "(1) " +
+              getColor("GREEN") +
+              "(2) " +
+              getColor("BLUE") +
+              "(3) " +
+              getColor("YELLOW") +
+              "(4)" +
+              getColor("WHITE") +
+              ": "
+          );
+          if (
+            index === "1" ||
+            index === "2" ||
+            index === "3" ||
+            index === "4"
+          ) {
+            const colors = [COLOR.RED, COLOR.GREEN, COLOR.BLUE, COLOR.YELLOW];
+            const colorSelected = colors[Number(index) - 1];
+            playerCard.color = colorSelected;
+            break;
+          }
+        }
+      } else {
+        playerCard.color = this.playerPlaying.selectRandomColor();
+      }
     }
+
+    // Valid card
+    this.deckPlayed.push(playerCard);
+    this.playerPlaying.removeCard(playerCard);
 
     return true;
   }

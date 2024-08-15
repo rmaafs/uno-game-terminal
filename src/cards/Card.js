@@ -45,6 +45,11 @@ class Card {
       return true;
     }
 
+    // Is deck card a "Select color"?
+    if (card.isSelectColor() && this.isSameColor(card)) {
+      return true;
+    }
+
     if (giveCardsNextPlayer > 0) {
       if ((this.isT2() && !card.isT2()) || (card.isT2() && !this.isT2())) {
         return false;
@@ -80,6 +85,10 @@ class Card {
 
   isT4() {
     return this.type === TYPE.T4;
+  }
+
+  isSelectColor() {
+    return this.type === TYPE.SELECT_COLOR;
   }
 }
 
