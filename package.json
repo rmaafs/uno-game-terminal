@@ -1,16 +1,21 @@
 {
-  "name": "uno",
+  "name": "uno-game-terminal",
   "version": "1.0.0",
-  "description": "",
+  "description": "A command-line implementation of the Uno card game with support for multiple players and various game rules.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "echo \"No tests specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "uno",
+    "card-game",
+    "terminal",
+    "cli"
+  ],
+  "author": "rmaafs",
   "license": "ISC",
   "dependencies": {
-    "node-color-log": "^12.0.1",
     "readline-sync": "^1.4.10"
   }
 }
