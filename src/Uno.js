@@ -178,7 +178,7 @@ class Uno {
           }
         }
       } else {
-        playerCard.color = this.playerPlaying.selectRandomColor();
+        playerCard.color = this.playerPlaying.selectRandomColor(deckCard.color);
       }
     }
 

@@ -50,13 +50,10 @@ class Player {
     return false;
   }
 
-  selectRandomColor() {
-    return randomizeArray([
-      COLOR.RED,
-      COLOR.GREEN,
-      COLOR.BLUE,
-      COLOR.YELLOW,
-    ])[0];
+  selectRandomColor(currentColor) {
+    let colors = [COLOR.RED, COLOR.GREEN, COLOR.BLUE, COLOR.YELLOW];
+    colors = removeElement(colors, currentColor);
+    return randomizeArray(colors)[0];
   }
 }
 

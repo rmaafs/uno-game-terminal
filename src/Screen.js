@@ -28,12 +28,15 @@ function printBoard(uno) {
   for (let i = uno.players.length - 1; i >= 1; i--) {
     const player = uno.players[i];
     const playerPlaying = uno.playerPlaying;
-    const isPlaying = uno.playerPlaying.id === player.id;
+    const isPlaying = playerPlaying.id === player.id;
 
     previousCardCount = previousCardsCount[player.id] - player.cards.length;
 
+    const hasOne = player.cards.length === 1;
+    const bgColor = hasOne ? "YELLOW" : isPlaying ? "RED" : "WHITE";
+
     strLog +=
-      getColor(isPlaying ? "RED" : "WHITE") +
+      getColor(bgColor) +
       player.name +
       " (" +
       player.cards.length +
