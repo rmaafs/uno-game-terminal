@@ -40,6 +40,10 @@ class Card {
       return true;
     }
   }
+
+  isReverse() {
+    return this.type === TYPE.REVERSE;
+  }
 }
 
 module.exports = Card;

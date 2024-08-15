@@ -11,6 +11,8 @@ class Uno {
     this.playerSize = playerSize;
     this.rules = rules;
 
+    this.goRight = true;
+
     this.deckPlayed = [];
     this.players = [];
     this.turnPlayer = -1;
@@ -42,16 +44,23 @@ class Uno {
   }
 
   nextCard() {
-    if (this.playerPlaying.cards.length === 0) {
+    if (this.playerPlaying && this.playerPlaying.cards.length === 0) {
       printDeck(this);
       console.log(this.playerPlaying.name + " wins!");
       process.exit(0);
     }
 
     // Get next turn player
-    if (++this.turnPlayer >= this.players.length) {
-      this.turnPlayer = 0;
+    if (this.goRight) {
+      if (++this.turnPlayer >= this.players.length) {
+        this.turnPlayer = 0;
+      }
+    } else {
+      if (--this.turnPlayer < 0) {
+        this.turnPlayer = this.players.length - 1;
+      }
     }
+
     this.playerPlaying = this.players[this.turnPlayer];
 
     printDeck(this);
@@ -98,6 +107,10 @@ class Uno {
     // Valid card
     this.deckPlayed.push(playerCard);
     this.playerPlaying.removeCard(playerCard);
+
+    if (playerCard.isReverse()) {
+      this.goRight = !this.goRight;
+    }
 
     return true;
   }
