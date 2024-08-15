@@ -145,7 +145,10 @@ class Uno {
       this.skipNextPlayer = true;
     } else if (playerCard.isT2()) {
       this.giveCardsNextPlayer += 2;
-    } else if (playerCard.isSelectColor()) {
+    } else if (playerCard.isSelectColor() || playerCard.isT4()) {
+      if (playerCard.isT4()) {
+        this.giveCardsNextPlayer += 4;
+      }
       if (this.playerPlaying.isHuman) {
         while (true) {
           // Ask

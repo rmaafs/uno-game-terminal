@@ -31,8 +31,8 @@ function getCardsArray() {
     // cards.push(new Card(TYPE.T2, color, null));
 
     // Special cards
-    // cards.push(new Card(TYPE.T4, null, null));
-    cards.push(new Card(TYPE.SELECT_COLOR, null, null));
+    cards.push(new Card(TYPE.T4, null, null));
+    // cards.push(new Card(TYPE.SELECT_COLOR, null, null));
   }
 
   return cards;

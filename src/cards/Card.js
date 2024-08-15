@@ -46,7 +46,11 @@ class Card {
     }
 
     // Is deck card a "Select color"?
-    if (card.isSelectColor() && this.isSameColor(card)) {
+    if ((card.isSelectColor() || card.isT4()) && this.isSameColor(card)) {
+      // If the deck card have +4, and the next car is not a T4, then is not playeable
+      if (giveCardsNextPlayer > 0 && !this.isT4()) {
+        return false;
+      }
       return true;
     }
 

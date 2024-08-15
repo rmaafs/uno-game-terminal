@@ -110,7 +110,7 @@ function getDigit(card) {
     return "+";
   } else if (card.type === TYPE.T2) {
     return "+2";
-  } else if (card.type === TYPE.T$) {
+  } else if (card.type === TYPE.T4) {
     return "+4";
   }
 }
