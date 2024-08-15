@@ -1,5 +1,6 @@
 var getCardsArray = require("./cards/Cards");
 const Player = require("./Player");
+const RULE = require("./Rules");
 var { randomizeArray, sleep } = require("./Utils");
 var { printDeck, printColor } = require("./Screen");
 const readlineSync = require("readline-sync");
@@ -32,12 +33,18 @@ class Uno {
     }
 
     // Put the first card
-    this.deckPlayed.push(this.takeCard());
+    this.deckPlayed.push(this.takeCard(true));
 
     this.nextStep();
   }
 
-  takeCard() {
+  takeCard(isFirstCard = false) {
+    if (isFirstCard) {
+      while (true) {
+        const card = this.cards.pop();
+        if (card.isNumeric()) return card;
+      }
+    }
     return this.cards.pop();
   }
 
@@ -77,15 +84,22 @@ class Uno {
     printDeck(this);
 
     if (this.giveCardsNextPlayer > 0) {
-      // if (!this.playerPlaying.hasT2orT4()) {
+      if (
+        this.hasRule(RULE.ACUMULATE_TAKE_CARDS) &&
+        this.playerPlaying.hasT2orT4()
+      ) {
+        // Continue
+      } else {
+        while (--this.giveCardsNextPlayer >= 0) {
+          this.playerPlaying.addCard(this.takeCard());
+        }
+        this.giveCardsNextPlayer = 0;
 
-      // }
-
-      while (--this.giveCardsNextPlayer >= 0) {
-        this.playerPlaying.addCard(this.takeCard());
+        return this.nextStep();
       }
-      this.giveCardsNextPlayer = 0;
-    } else if (this.playerPlaying.isHuman) {
+    }
+
+    if (this.playerPlaying.isHuman) {
       while (true) {
         // Ask
         const index = readlineSync.question("Choose your next number: ");
@@ -120,7 +134,7 @@ class Uno {
     }
 
     // If is a color card
-    if (!playerCard.isPlayeableWith(deckCard)) {
+    if (!playerCard.isPlayeableWith(deckCard, this.giveCardsNextPlayer)) {
       return printColor("red", "Please choose a valid color card.");
     }
 
@@ -141,6 +155,16 @@ class Uno {
 
   getActualDeckCard() {
     return this.deckPlayed[this.deckPlayed.length - 1];
+  }
+
+  hasRule(rule) {
+    for (let i = 0; i < this.rules.length; i++) {
+      if (this.rules[i] === rule) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
 

@@ -45,6 +45,7 @@ function printBoard(uno) {
     uno.cards.length +
     "]\t\t" +
     getPrintCard(playingCard) +
+    (uno.giveCardsNextPlayer > 0 ? " +" + uno.giveCardsNextPlayer : "") +
     "\n\n\n";
 
   // Print human cards

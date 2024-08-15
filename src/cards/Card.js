@@ -38,22 +38,32 @@ class Card {
     return false;
   }
 
-  isPlayeableWith(card) {
+  isPlayeableWith(card, giveCardsNextPlayer) {
     if (this.type === TYPE.SELECT_COLOR) {
       return true;
     } else if (this.type === TYPE.T4) {
       return true;
     }
 
+    if (giveCardsNextPlayer > 0) {
+      if ((this.isT2() && !card.isT2()) || (card.isT2() && !this.isT2())) {
+        return false;
+      }
+    }
+
+    if (this.isSameSpecialType(card)) {
+      return true;
+    }
     if (this.isSameColor(card)) {
       return true;
     }
     if (this.isSameNumeric(card)) {
       return true;
     }
-    if (this.isSameSpecialType(card)) {
-      return true;
-    }
+  }
+
+  isNumeric() {
+    return this.type === TYPE.NUMBER;
   }
 
   isReverse() {

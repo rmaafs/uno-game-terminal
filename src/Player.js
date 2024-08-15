@@ -26,7 +26,7 @@ class Player {
     for (let i = 0; i < this.cards.length; i++) {
       const card = this.cards[i];
 
-      if (card.isPlayeableWith(deckCard)) {
+      if (card.isPlayeableWith(deckCard, uno.giveCardsNextPlayer)) {
         return card;
       }
     }
